@@ -1,0 +1,23 @@
+{% extends 'base_app/base.html' %}
+
+{% block content %}
+
+    <div class="container">
+
+        {% for category in exam_categories %}
+
+            <div class="category-card">
+
+                <h3>{{category.name}}</h3>
+                
+                <a href="{% url 'exams-on-category' category.slug %}"><img src="{{category.image.url}}" alt="category_image"></a>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+{% endblock %}
+
+   

@@ -1,0 +1,27 @@
+{% extends 'base_app/base.html' %}
+
+{% block content %}
+
+<br> <br> <br> <br> <br>
+
+<div class="container">
+
+<div class="question-card text-center">
+    
+    <h1>Your score</h1>
+
+    <br>
+
+    <h2 class="text-success p-2" style="border: 2px solid #546de5; border-radius: 10px;">{{marks}}<p style="font-size: 20px; color: rgb(187, 11, 11);">(out of {{total_questions}})</p></h2>
+
+    <br>
+
+    <a href="{% url 'result-details' exam_slug %}" class="btn btn-warning">See the details</a>
+
+</div>
+
+</div>
+
+<br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+{% endblock %}

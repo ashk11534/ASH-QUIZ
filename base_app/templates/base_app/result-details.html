@@ -1,0 +1,118 @@
+{% extends 'base_app/base.html' %}
+
+{% block content %}
+
+<style>
+
+.small-form-layout{
+
+    background-color: #546de5;
+
+    width: 400px;
+
+    border-radius: 20px;
+
+}
+
+</style>
+
+<div class="question-container">
+
+    {% if request.user.is_authenticated%}
+
+        <div class="bg-white shadow-md p-3 small-form-layout text-center">
+
+            <h3>Correct answers</h3>
+        
+        </div>
+
+        <br>
+
+    {% endif %}
+
+    <form action="" method="POST">
+
+    {% for correct_answer in correct_answers %}
+
+    {% csrf_token %}
+
+    <div class="question-card">
+        
+        <div class="question-body">
+
+            <p><strong>{{forloop.counter}}. {{correct_answer.question.title}}</strong></p>
+
+            {% for option in options %}
+
+                {% if option.question == correct_answer.question %}
+
+                    <div class="form-check">
+
+                        {% if option == correct_answer.option and option.question == correct_answer.question %}
+                
+                            <input class="form-check-input bg-primary" type="radio" name="flexRadioDefault-{{option.question.id}}" id="flexRadioDefault-{{option.question.id}}" value="{{option.title}}" disabled>
+
+                        {% else %}
+
+                            <input class="form-check-input" type="radio" name="flexRadioDefault-{{option.question.id}}" id="flexRadioDefault-{{option.question.id}}" value="{{option.title}}" disabled>
+
+                        {% endif %}
+                    <label class="form-check-label" for="flexRadioDefault-{{option.question.id}}">
+                    
+                        <p>{{option.title}}</p>
+                    
+                    </label>
+
+                    </div>
+                
+                {% endif %}
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    <br>
+
+    {% endfor %}
+
+</form>
+
+{% if request.user.is_authenticated and submitted_answers%}
+
+        <div class="bg-white shadow-md p-3 small-form-layout text-center">
+
+            <h3>Your answers</h3>
+
+        </div>
+
+        <br>
+
+        {% for answer in submitted_answers %}
+
+            <div class="bg-white shadow-md p-2 small-form-layout text-center">
+
+                {% if answer in correct_answer_option_titles %}
+
+                    <p><strong>{{forloop.counter}}. <span class="badge bg-primary p-1">{{answer}}</span></strong></p>
+
+                {% else %}
+
+                    <p><strong>{{forloop.counter}}. <span class="badge bg-danger p-1">{{answer}}</span></strong></p>
+
+                {% endif %}
+
+            </div>
+
+            <br>
+
+        {% endfor %}
+
+{% endif %}
+
+</div>
+
+<br> <br> <br> <br> <br> <br>
+
+{% endblock %}

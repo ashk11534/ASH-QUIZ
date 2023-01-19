@@ -1,0 +1,108 @@
+{% extends 'base_app/base.html' %}
+
+{% block content %}
+
+
+<style>
+
+    .form-layout{
+
+        border-radius: 20px;
+
+        width: 500px;
+
+    }
+
+    .small-form-layout{
+
+        background-color: #546de5;
+
+        width: 300px;
+
+        border-radius: 20px;
+
+    }
+
+    hr{
+
+        border-color: #333;
+
+    }
+
+</style>
+
+<br> <br>
+<div class="d-flex align-items-center flex-column">
+
+<div class="bg-white shadow-md p-5 form-layout text-center">
+
+    <h3>Welcome! {{request.user}}</h3>
+
+</div>
+
+<br>
+
+<div class="bg-white shadow-md p-5 form-layout text-center">
+
+    <h3>Your participations</h3>
+
+    <hr>
+
+    {% if not exam_participations %}
+
+        <h5>No participation is available right now.</h5>
+
+    {% else %}
+
+    <div class="d-flex flex-column align-items-center">
+
+        {% for exam in exam_participations %}
+
+            <a href="{% url 'exam-questions' exam.slug %}">
+
+                <div class="d-flex">
+
+                    <div class="shadow-md p-2 small-form-layout text-center text-white">
+                        
+                        {{exam.name}} 
+
+                    </div>
+
+                    <div>
+
+                        &nbsp;&nbsp; <a href="{% url 'delete-exam' exam.id %}" class="btn btn-danger">Delete</a>
+
+                    </div>
+
+                </div>
+
+            </a>
+
+            <br>
+
+        {% endfor %}
+
+    </div>
+
+    {% endif %}
+    
+
+</div>
+
+<br>
+
+<div class="bg-white shadow-md p-5 form-layout text-center">
+
+    <h4>Manage your account</h4>
+
+    <hr>
+
+    <a class="btn btn-success navbar-btn text-white" type="button"  href="{% url 'profile-management' %}"> Profile management </a>
+
+</div>
+
+</div>
+
+<br> <br> <br> <br><br> <br>
+
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base_app/base.html' %}
+
+{% block content %}
+
+
+<div class="container">
+
+    {% if not exams %}
+
+    <div class="category-exam-card w-50">
+
+        <h3>No exam is available right now.</h3>
+
+    </div>
+
+    {% else %}
+
+    {% for exam in exams %}
+
+        <a href="{% url 'exam-questions' exam.slug %}">
+
+            <div class="category-exam-card">
+
+                <h3>{{exam.name}}</h3>
+        
+            </div>
+            
+        </a>
+
+    {% endfor %}
+
+    {% endif %}
+
+</div>
+    <br> <br> <br> <br> <br> <br> <br><br> <br> <br> <br> <br> <br> <br><br> <br> <br>
+
+
+
+{% endblock %}
